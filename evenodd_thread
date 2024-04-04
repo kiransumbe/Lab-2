@@ -1,0 +1,44 @@
+class PrintNumbers {
+    private static final int MAX = 100;
+    private static volatile int number = 1;
+    private static final Object lock = new Object();
+
+    public static void main(String[] args) {
+        Thread oddThread = new Thread(() -> {
+            while (number <= MAX) {
+                synchronized (lock) {
+                    if (number % 2 != 0) {
+                        System.out.println(Thread.currentThread().getName() + ": " + number);
+                        number++;
+                        lock.notify();
+                    } else {
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }}}}
+                         
+        }, "OddThread");
+
+        Thread evenThread = new Thread(() -> {
+            while (number <= MAX) {
+           synchronized (lock) {
+                    if (number % 2 == 0) {
+                    System.out.println(Thread.currentThread().getName() + ": " + number);
+                        number++;
+                     lock.notify();
+                    } else {
+                        try {
+                            lock.wait();
+                        } catch (InterruptedException e) {
+                            e.printStackTrace();
+                        }}}}
+                    
+                
+            
+        }, "EvenThread");
+
+        oddThread.start();
+        evenThread.start();
+    }
+}

@@ -1,0 +1,57 @@
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
+class Product implements Comparable<Product> {
+    private String name;
+    private double price;
+
+    public Product(String name, double price) {
+        this.name = name;
+        this.price = price;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public double getPrice() {
+        return price;
+    }
+
+    @Override
+    public int compareTo(Product other) {
+       
+        return Double.compare(this.price, other.price);
+    }
+
+    @Override
+    public String toString() {
+        return "Product{" +
+                "name='" + name + '\'' +
+                ", price=" + price +
+                '}';
+    }
+}
+
+public class Main {
+    public static void main(String[] args) {
+        List<Product> products = new ArrayList<>();
+        products.add(new Product("Product A", 20.5));
+        products.add(new Product("Product B", 10.2));
+        products.add(new Product("Product C", 30.0));
+        products.add(new Product("Product D", 15.75));
+
+        System.out.println("Products before sorting:");
+        for (Product product : products) {
+            System.out.println(product);
+        }
+
+        Collections.sort(products);
+
+        System.out.println("\nProducts after sorting by price:");
+        for (Product product : products) {
+            System.out.println(product);
+        }
+    }
+}
