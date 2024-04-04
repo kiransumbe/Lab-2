@@ -1,0 +1,120 @@
+import java.util.ArrayList;
+import java.util.Scanner;
+
+class Doctor {
+    private int id;
+    private String name;
+    private String specialty;
+
+    public Doctor(int id, String name, String specialty) {
+        this.id = id;
+        this.name = name;
+        this.specialty = specialty;
+}
+    public int getId() {
+    return id;
+ }
+
+    public void setId(int id) {
+   this.id = id;
+  }
+
+    public String getName() {
+    return name;
+ }
+
+    public void setName(String name) {
+     this.name = name;
+  }
+
+    public String getSpecialty() {
+    return specialty;
+    }
+
+    public void setSpecialty(String specialty) {
+    this.specialty = specialty;
+    }
+
+    @Override
+    public String toString() {
+        return "Doctor{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", specialty='" + specialty + '\'' +
+                '}';
+    }
+}
+
+public class DoctorManagementSystem {
+    private ArrayList<Doctor> doctors;
+
+    public DoctorManagementSystem() {
+        doctors = new ArrayList<>();
+  }
+
+    public void addDoctor(int id, String name, String specialty) {
+    doctors.add(new Doctor(id, name, specialty));
+  }
+
+    public void displayDoctors() {
+        for (Doctor doctor : doctors) {
+        System.out.println(doctor);
+        }
+    }
+
+    public void updateDoctor(int id, String name, String specialty) {
+        for (Doctor doctor : doctors) {
+            if (doctor.getId() == id) {
+             doctor.setName(name);
+             doctor.setSpecialty(specialty);
+                break;
+            }} }
+
+    public static void main(String[] args) {
+        DoctorManagementSystem system = new DoctorManagementSystem();
+        Scanner scanner = new Scanner(System.in);
+        int choice;
+
+        do {
+            System.out.println("1. Add Doctor");
+            System.out.println("2. Display Doctors");
+            System.out.println("3. Update Doctor");
+            System.out.println("4. Exit");
+            System.out.print("Enter your choice: ");
+            choice = scanner.nextInt();
+            scanner.nextLine(); 
+
+            switch (choice) {
+                case 1:
+                    System.out.print("Enter Doctor ID: ");
+                    int id = scanner.nextInt();
+                    scanner.nextLine(); 
+                    System.out.print("Enter Doctor Name: ");
+                    String name = scanner.nextLine();
+                    System.out.print("Enter Doctor Specialty: ");
+                    String specialty = scanner.nextLine();
+                    system.addDoctor(id, name, specialty);
+                    break;
+                case 2:
+                    System.out.println("Doctors:");
+                    system.displayDoctors();
+                    break;
+                case 3:
+                    System.out.print("Enter Doctor ID to update: ");
+                    int updateId = scanner.nextInt();
+                    scanner.nextLine(); // Consume newline character
+                    System.out.print("Enter New Doctor Name: ");
+                    String newName = scanner.nextLine();
+                    System.out.print("Enter New Doctor Specialty: ");
+                    String newSpecialty = scanner.nextLine();
+                    system.updateDoctor(updateId, newName, newSpecialty);
+                    break;
+                case 4:
+                    System.out.println("Exit...");
+                    break;
+                default:
+                    System.out.println("Invalid choice.");
+            }
+        } while (choice != 4);
+    }
+}
