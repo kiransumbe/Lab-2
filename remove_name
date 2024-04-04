@@ -1,0 +1,22 @@
+import java.util.ArrayList;
+import java.util.List;
+
+public class Main {
+    public static void main(String[] args) {
+        List<String> studentNames = new ArrayList<>();
+        studentNames.add("kiran");
+        studentNames.add("sakshi");
+        studentNames.add("saurav");
+        studentNames.add("swapnil");
+        studentNames.add("radha");
+        studentNames.add("dhanashri");
+
+        System.out.println("Student names before removal:");
+        System.out.println(studentNames);
+
+        studentNames.removeIf(name -> name.startsWith("S"));
+
+        System.out.println("\nStudent names after removal:");
+        System.out.println(studentNames);
+    }
+}
