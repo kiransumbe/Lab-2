@@ -1,0 +1,125 @@
+import java.util.*;
+
+class Author {
+    private String name;
+
+    public Author(String name) {
+     this.name = name;
+    }
+
+    public String getName() {
+     return name;
+    }
+
+    @Override
+    public String toString() {
+     return name;
+    }
+}
+
+class Book {
+    private String title;
+    private List<Author> authors;
+
+    public Book(String title) {
+        this.title = title;
+        this.authors = new ArrayList<>();
+    }
+
+    public void addAuthor(Author author) {
+        authors.add(author);
+    }
+
+    public void removeAuthor(Author author) {
+        authors.remove(author);
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public List<Author> getAuthors() {
+        return authors;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "title='" + title +
+                ", authors=" + authors +
+                '};
+ }
+}
+
+public class BookManagementSystem {
+    private Map<String, Book> books;
+
+    public BookManagementSystem() {
+        this.books = new HashMap<>();
+    }
+
+    public void addBook(String title) {
+        Book book = new Book(title);
+        books.put(title, book);
+    }
+
+    public void updateBook(String oldTitle, String newTitle) {
+        if (books.containsKey(oldTitle)) {
+          Book book = books.remove(oldTitle);
+         book = new Book(newTitle);
+            books.put(newTitle, book);
+        } else {
+            System.out.println("Book not found!");
+        }
+    }
+
+    public void deleteBook(String title) {
+      if (books.containsKey(title)) {
+       books.remove(title);
+        } else {
+            System.out.println("Book not found!");
+        }
+    }
+
+    public void addAuthorToBook(String title, Author author) {
+        if (books.containsKey(title)) {
+            Book book = books.get(title);
+            book.addAuthor(author);
+        } else {
+            System.out.println("Book not found");
+        }
+        }
+
+    public void printBooks() {
+        for (Book book : books.values()) {
+         System.out.println(book);
+        }
+    }
+
+    public static void main(String[] args) {
+        BookManagementSystem system = new BookManagementSystem();
+
+        Author author1 = new Author("Author1");
+        Author author2 = new Author("Author2");
+
+        system.addBook("Book One");
+        system.addBook("Book Two");
+        system.addAuthorToBook("Book1", author1);
+        system.addAuthorToBook("Book2", author2);
+
+        System.out.println("Books:");
+        system.printBooks();
+
+        System.out.println("Deleting Book1...");
+        system.deleteBook("Book One");
+
+        System.out.println("Books after deletion:");
+        system.printBooks();
+
+        System.out.println("Updating Book 2 title...");
+        system.updateBook("Book2", "New Book Title");
+
+        System.out.println("Books after update:");
+        system.printBooks();
+    }
+}
